@@ -89,14 +89,14 @@
         })
     }
 
-    //Updating from "creation" textboxes because appending textboxes with an id that counts up for each didnt work
+    // Update works, but its using the textboxes at the top. I tried to make dynamic update with an id that counts up, but couldnt catch the id with ajax after. Wanted to use $('#name++id').val()
     function updateButton(id){
         var name = $('#name').val()
         var email = $('#email').val()
         var supervisor_id = $('#supervisors').val()
 
         $.ajax({
-            method : "POST",
+            method : "PUT",
             url: "http://localhost:8080/student/"+ id,
             data : {name : name, email : email, supervisor_id : supervisor_id}
         }).done(function(data, status, xhr){

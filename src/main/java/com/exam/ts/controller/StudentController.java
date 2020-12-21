@@ -51,7 +51,7 @@ public class StudentController {
 
     //put
     @CrossOrigin(origins = "*", exposedHeaders = "Location")
-    @PostMapping("/student/{id}")
+    @PutMapping("/student/{id}")
     public ResponseEntity <String> update(@ModelAttribute Student s){
         Student student = studentRepository.save(s);
 
