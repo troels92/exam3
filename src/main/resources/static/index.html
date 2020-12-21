@@ -14,10 +14,17 @@
     E-mail: <input type="text" id="email" required><br>
     <br>
     Supervisor:
+    <!--
     <select id="supervisors" name="supervisors">
         <option value="1">Lars</option>
         <option value="2">Niels</option>
     </select><br>
+    <div>
+    -->
+        <select id="supervisors" name="supervisors">
+
+        </select><br>
+    </div>
     <br>
     <button id="submitButton" onclick="create()">Add Student</button>
 </div>
@@ -27,6 +34,17 @@
     </ul>
 </div>
 <script>
+
+    $.ajax({
+        method : "GET",
+        url: "http://localhost:8080/supervisor"
+    }).done(function(data){
+        for(var i = 0; i <= data.length - 1; i++){
+            $("#supervisors").append(
+                '<option value="'+data[i].id+'">'+ data[i].name +'</option>'
+            )
+        }
+    })
 
     $.ajax({
         method : "GET",
