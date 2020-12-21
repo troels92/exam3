@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Students</title>
+</head>
+<body>
+
+<div id="content">
+    <h1>Add student:</h1>
+    Name: <input type="text" id=name required><br>
+    <br>
+    E-mail: <input type="text" id="email" required><br>
+    <br>
+    Supervisor:
+    <select id="supervisors" name="supervisors">
+        <option value="1">Lars</option>
+        <option value="2">Niels</option>
+    </select><br>
+    <br>
+    <button id="submitButton" onclick="create()">Add Student</button>
+</div>
+<div>
+    <ul id="liste">
+
+    </ul>
+</div>
+
+<script>
+
+    $.ajax({
+        method : "GET",
+        url: "http://localhost:8080/student"
+    }).done(function(data){
+        for(var i = 0; i <= data.length - 1; i++){
+            $("#liste").append('Name: <input type="text" id="'+ "name"+ data[i].id +'" required value='+data[i].name+'> ' +
+                'Email: <input type="text" id=email1 required value='+data[i].email+'> ' +
+                'Supervisor:<select id="supervisors1" name="supervisors" >' +
+                '<option value='+data[i].supervisor_id+'>'+data[i].supervisor_id+'</option>\n' +
+                '</select>' +
+                '<button id="updateButton' + data[i].id  + '" onclick="updateButton('+data[i].id+')">Update</button>' + '  ' +
+                '<button id="deleteButton' + data[i].id  + '" onclick="deleteButton('+data[i].id+')">Delete</button><br>'
+
+            /*
+                'Name:' + data[i].name +
+                'Email:' + data[i].email +
+                'Supervisor:' + data[i].supervisor_id +
+                '<button id="updateButton' + data[i].id  + '" onclick="updateButton('+data[i].id+')">Update</button>' + '  ' +
+                '<button id="deleteButton' + data[i].id  + '" onclick="deleteButton('+data[i].id+')">Delete</button><br>'
+            */
+            )
+        }
+    })
+
+    function create(){
+        var name = $('#name').val()
+        var email = $('#email').val()
+        var supervisor_id = $('#supervisors').val()
+
+        $.ajax({
+            method : "POST",
+            url : "http://localhost:8080/student",
+            data : {name : name, email : email, supervisor_id : supervisor_id}
+        }).done(function(data, status, xhr){
+
+            console.log(xhr)
+
+            var s = xhr.getResponseHeader("Location")
+            console.log(s)
+            var t = s.substr(1) // post/4
+
+            window.location.reload()
+        })
+    }
+
+    function updateButton(id){
+        var name = $('#name').val()
+        var email = $('#email').val()
+        var supervisor_id = $('#supervisors').val()
+
+        $.ajax({
+            method : "POST",
+            url: "http://localhost:8080/student/"+ id,
+            data : {name : name, email : email, supervisor_id : supervisor_id}
+        }).done(function(data, status, xhr){
+
+            console.log(xhr)
+
+            var s = xhr.getResponseHeader("Location")
+            console.log(s)
+            var t = s.substr(1) // post/4
+
+            window.location.reload()
+        })
+    }
+
+    function deleteButton(id){
+        $.ajax({
+            method : "DELETE",
+            url: "http://localhost:8080/student/"+ id
+        }).done(function(data){
+            window.location.reload()
+        })
+
+
+    }
+
+</script>
+
+</body>
+</html>
