@@ -35,8 +35,8 @@
     }).done(function(data){
         for(var i = 0; i <= data.length - 1; i++){
             $("#liste").append('Name: <input type="text" id="'+ "name"+ data[i].id +'" required value='+data[i].name+'> ' +
-                'Email: <input type="text" id=email1 required value='+data[i].email+'> ' +
-                'Supervisor:<select id="supervisors1" name="supervisors" >' +
+                'Email: <input type="text" id="email'+ data[i].id +'" required value='+data[i].email+'> ' +
+                'Supervisor:<select id="supervisors'+ data[i].id +'" name="supervisors" >' +
                 '<option value='+data[i].supervisor_id+'>'+data[i].supervisor_id+'</option>\n' +
                 '</select>' +
                 '<button id="updateButton' + data[i].id  + '" onclick="updateButton('+data[i].id+')">Update</button>' + '  ' +
@@ -74,6 +74,7 @@
         })
     }
 
+    //Updating from "creation" textboxes because appending textboxes with an id that counts up for each didnt work
     function updateButton(id){
         var name = $('#name').val()
         var email = $('#email').val()
