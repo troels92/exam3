@@ -26,7 +26,6 @@
 
     </ul>
 </div>
-
 <script>
 
     $.ajax({
@@ -36,9 +35,7 @@
         for(var i = 0; i <= data.length - 1; i++){
             $("#liste").append('Name: <input type="text" id="'+ "name"+ data[i].id +'" required value='+data[i].name+'> ' +
                 'Email: <input type="text" id="email'+ data[i].id +'" required value='+data[i].email+'> ' +
-                'Supervisor:<select id="supervisors'+ data[i].id +'" name="supervisors" >' +
-                '<option value='+data[i].supervisor_id+'>'+data[i].supervisor_id+'</option>\n' +
-                '</select>' +
+                'Supervisor:<input type="text" id="supervisors'+ data[i].id +'" name="supervisors" required value='+data[i].supervisor_id+'>' +
                 '<button id="updateButton' + data[i].id  + '" onclick="updateButton('+data[i].id+')">Update</button>' + '  ' +
                 '<button id="deleteButton' + data[i].id  + '" onclick="deleteButton('+data[i].id+')">Delete</button><br>'
 

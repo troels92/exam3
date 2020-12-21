@@ -19,6 +19,8 @@ public class SupervisorController {
     SupervisorRepository supervisorRepository;
 
 
+//Crud til supervisor er åben for postman
+
 
     //Show index
     @GetMapping("/supervisor")
